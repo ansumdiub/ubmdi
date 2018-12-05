@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>UBMDI</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--link rel="stylesheet" href="{% static 'css/collegeScore.css' %}"/-->
+</head>
+<body>
+<nav class="navbar sticky-top navbar-light" style="background-color: #b3cde0;">
+    <div class="container">
+        <ul class="nav nav-pills navbar-right">
+            <li><a class="navbar-brand" href="{% url 'mof_network:index' %}">Welcome</a></li>
+            <li><a class="navbar-brand" href="{% url 'mof_network:map_view' %}">Map View</a></li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    {% block body_block %}
+    {# Anything outside of this will be inherited if you use extend.#}
+    {% endblock %}
+</div>
+</body>
+<script src="{% static 'lib/jquery.js' %}"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+</html>

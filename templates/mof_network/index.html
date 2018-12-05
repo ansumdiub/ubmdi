@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends "mof_network/base.html" %}
+{% block body_block%}
+<div class="jumbotron">
+    <h2>Correlative analysis of MOF network</h2>
+    <p>Metal organic frameworks (MOFs) are one of the most exciting advances in solid state materials science.
+        They are crystalline materials assembled with metal clusters and organic linkers, which have tailorable pore sizes, pore geometries, high void fractions, and large surface areas.
+        Those features enable a wide applications of MOFs in many fields, including gas storage, separation, catalysis, and carbon capture.
+        Since their first discovery, thousands of MOFs have been experimentally synthesized.
+        The rich and still growing database of MOFs have also raised a crucial challenge: <br>
+        <em>how does one identify the most promising structures, among the thousands of possibilities, for a particular application?</em><br>
+        As synthesizing and testing a large number of MOF is not feasible in practice, the high-throughput computational screening of the MOF database can help expedite the experimental efforts.
+        However, typical MOF database is high-dimensional and sparse that pose the challenge of extracting the key features and trends that could guide the discovery process.
+        To address this issue, we develop a library of MOF fingerprints based on their geometric and chemical bonding interactions.
+        Such fingerprints are computational ready to be analyzed with various machine learning methods.</p>
+</div>
+{% endblock %}
