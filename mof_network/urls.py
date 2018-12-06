@@ -2,7 +2,7 @@ from django.conf.urls import url
 from . import views
 
 # SET THE NAMESPACE!
-app_name = 'mof_network'
+app_name = 'mof'
 
 urlpatterns = [
     url(r'^$', views.index, name='index'),

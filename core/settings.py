@@ -26,7 +26,7 @@ SECRET_KEY = '3u-c@81^da909u_qaw(!q^n@3-mr$qk-e5_fwte07_q$r^_$(8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ubmdi.pythonanywhere.com', '127.0.0.1']
 
 
 # Application definition

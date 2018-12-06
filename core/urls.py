@@ -22,5 +22,5 @@ from mof_network import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     url(r'^$', views.index, name='index'),
-    url(r'^mof_network/', include('mof_network.urls'))
+    url(r'^mof/', include('mof_network.urls'))
 ]

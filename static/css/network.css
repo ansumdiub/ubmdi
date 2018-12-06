@@ -20,12 +20,6 @@ text {
     pointer-events: none;
 }
 
-body {
-    background-color: #e8d3be;
-}
-
-/* HREF links */
-
 a {
     color: blue;
     text-decoration: none;
@@ -57,7 +51,7 @@ div#title {
     font-family: Verdana, Arial, Helvetica, sans-serif;
     font-size: 22px;    
     line-height: 18px;
-    color: #440808;
+/*    color: #440808;*/
     font-weight: bold;
     pointer-events: none;
 }
@@ -210,10 +204,11 @@ div#nocontent h1 {
 }
 
 /* ....................................................................... */
-/* Movie details panel */
+/* MOF details panel */
 
 div#materialInfo {
-    position: relative;
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
     right: 4px;
     cursor: text;
     width: 300px;
@@ -358,33 +353,4 @@ text.nshadow {
 text.main {
     font: 12px sans-serif;
     font-weight: bold;
-}
-
-
-/* ....................................................................... */
-
-/* no longer used */
-
-.nlabel_on {
-    visibility: visible;
-    font-size: 12px;
-    opacity: 1.0;
-    fill: #101000;
-    stroke: #ffffff;
-    font-weight: bold;
-}
-
-.tooltip{
-    position: absolute;
-    width: 200px;
-    height: 50px;
-    padding: 8px;
-    font: 15px Helvetica Neue;
-    background: #FFF;
-    border: solid 1px #aaa;
-    border-radius: 8px;
-    pointer-events: none;
-    z-index:1000;
-    text-align:center;
-    background: rgba(222,223,163,0.8);
 }
