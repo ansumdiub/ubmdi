@@ -1,0 +1,25 @@
+{% extends 'mof_network/base.html' %}
+{% load staticfiles %}
+
+{% block body_block %}
+    <div class="jumbotron">
+        <h2 class="display-4">Please Login</h2>
+        <p class="lead">In order to add/drop data entries</p>
+        <hr class="my-4">
+
+        {% if form.errors %}
+            <p>Your username and password didn't match! Please try again.</p>
+        {% endif %}
+
+        <form action="{% url 'login' %}" method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <label for="username">Username:</label>
+            <input type="text" name="username" placeholder="Username">
+            <label for="password">Password:</label>
+            <input type="password" name="password">
+            <input type="submit" class="btn btn-primary" value="Login">
+            <!--input type="hidden" class="next" value="{{ next }}"-->
+        </form>
+    </div>
+{% endblock %}

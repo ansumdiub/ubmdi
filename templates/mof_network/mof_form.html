@@ -1,0 +1,14 @@
+{% extends "mof_network/base.html" %}
+{% block body_block %}
+    <h1>{% if not form.instance.pk %}
+            Enter New MOF structure
+        {% else %}
+            Update existing MOF entry
+        {% endif %}
+    </h1>
+    <form enctype="multipart/form-data" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary" name="button">Save</button>
+    </form>
+{% endblock %}

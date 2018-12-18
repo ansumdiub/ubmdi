@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+{% extends "mof_network/base.html" %}
+{% load staticfiles %}
+{% block body_block%}
+<div class="jumbotron">
+    <h2 class="display-4">Properties of MOFs</h2>
+    <p class="lead"><a href="https://pubs.rsc.org/en/content/articlelanding/2018/me/c8me00014j/unauth#!divAbstract">Correlative analysis of metal organic framework structures through manifold learning of Hirshfeld surfaces</a></p>
+    <hr class="my-4">
+
+    <div class="card-deck">
+        <div class="card mb-3" style="align-content: center;">
+            <img class="card-img-top" src="{{ mof_detail.fingerprint.url }}" alt="Card image cap">
+        </div>
+
+        <div class="card border-dark mb-3" style="align-content: center;">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h2 class="card-title">{{ mof_detail.name }}</h2>
+                    <p class="card-text"></p>
+                </div>
+            </div>
+            <div class="card text-right">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Largest Cavity Diameter: {{ mof_detail.lcd }} <span>&#8491;</span></li>
+                    <li class="list-group-item">Pore-limiting Diameter: {{ mof_detail.pld }} <span>&#8491;</span></li>
+                    <li class="list-group-item">Accessible Surface Area: {{ mof_detail.area }} m<sup>2</sup>/g</li>
+                    <li class="list-group-item">Density: {{ mof_detail.density }} g/m<sup>3</sup></li>
+                    <li class="list-group-item">Formula: {{ mof_detail.formula }}</li>
+                    <li class="list-group-item">Space Group: {{ mof_detail.space_group }}</li>
+                    <li class="list-group-item">Volume Fraction: {{ mof_detail.vol_frac }}</li>
+                </ul>
+
+                <div class="card-body">
+                    <p>Correlated with: </p>
+                    {% for item in mof_detail.B.all %}
+                        <a href="{% url 'mof:mof_detail' pk=item.source_id|safe %}" class="card-link">{{ item.source_id|safe }}</a>
+                    {% empty %}<p>None in this dataset</p>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    <a class="btn btn-primary" href="{% url 'mof:mof_update' pk=mof_detail.pk %}">Update</a>
+    {% if user.is_authenticated %}
+        <a class="btn btn-light" href="{% url 'mof:mof_approve' pk=mof_detail.pk %}">Approve</a>
+        <a class="btn btn-warning" href="{% url 'mof:mof_delete' pk=mof_detail.pk %}">Remove</a>
+    {% endif %}
+
+    <a class="btn btn-light" href="{% url 'mof:add_comment_to_mof' pk=mof_detail.pk %}">Add Comments</a>
+    {% for comment in mof_detail.comments.all %}
+        <p>{{ comment.text|safe|linebreaks }} <b>Posted By:</b> {{ comment.author }}</p>
+    {% empty %}<p>No Comments</p>
+    {% endfor %}
+</div>
+{% endblock %}

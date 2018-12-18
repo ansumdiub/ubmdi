@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+{% extends "mof_network/base.html" %}
+{% block body_block %}
+<div class="jumbotron">
+    <h2 class="display-4">Delete {{ mof.name }}?</h2>
+    <hr class="my-4">
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Delete">
+        <a href="{% url 'mof:mof_detail' pk=mof.pk %}">Cancel</a>
+    </form>
+</div>
+{% endblock %}

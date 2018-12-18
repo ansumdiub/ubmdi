@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends "mof_network/base.html" %}
+{% block body_block%}
+<div class="jumbotron">
+    <h2 class="display-4">List View</h2>
+    <p class="lead"><a href="https://pubs.rsc.org/en/content/articlelanding/2018/me/c8me00014j/unauth#!divAbstract">Correlative analysis of metal organic framework structures through manifold learning of Hirshfeld surfaces</a></p>
+    <hr class="my-4">
+    <p>Post View</p>
+    {% for apatite in apatite_list %}
+        <div class="post">
+        <h1><a href="{% url 'mof:post_detail_view' pk=apatite.pk %}">{{ apatite.title }}</a></h1>
+        <div class="date">
+            <p>Published on: {{ apatite.publish|date:"D M Y" }}</p><!--No Blank Space-->
+        </div>
+        <a href="{% url 'mof:post_detail_view' pk=apatite.pk %}">Comments: {{ apatite.approve_comments.count }}</a>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

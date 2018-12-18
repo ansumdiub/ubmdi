@@ -1,0 +1,9 @@
+{% extends "mof_network/base.html" %}
+{% block body_block %}
+    <h1>New Structure</h1>
+    <form class="post-form" method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-default" name="button">Save</button>
+    </form>
+{% endblock %}

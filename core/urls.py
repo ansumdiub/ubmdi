@@ -14,13 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from django.conf.urls import include, url, static
 from django.urls import path
-from django.conf.urls import include, url
+from . import settings
 from mof_network import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    url(r'^$', views.index, name='index'),
-    url(r'^mof/', include('mof_network.urls'))
+    url(r'', include('mof_network.urls')),
+    url(r'accounts/login/$', views.login_view, name='login'),
+    url(r'accounts/logout/$', views.logout_view, name='logout'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static.static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

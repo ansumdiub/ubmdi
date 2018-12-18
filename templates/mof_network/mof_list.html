@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% extends "mof_network/base.html" %}
+{% block body_block%}
+<div class="jumbotron">
+    <h2 class="display-4">List of Documented MOFs</h2>
+    <p class="lead"><a href="https://pubs.rsc.org/en/content/articlelanding/2018/me/c8me00014j/unauth#!divAbstract">Correlative analysis of metal organic framework structures through manifold learning of Hirshfeld surfaces</a></p>
+    <hr class="my-4">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Accessible Surface Area (m<sup>2</sup>/g)</th>
+            <th scope="col">Formula</th>
+            <th scope="col">Space Group</th>
+            <th scope="col">Comments</th>
+        </tr>
+        </thead>
+        {% for mof in mofs %}
+            <tr>
+                <th scope="row"><a href="{% url 'mof:mof_detail' pk=mof.pk %}">{{ mof.name }}</a></th>
+                <td>{{ mof.area }}</td>
+                <td>{{ mof.formula }}</td>
+                <td>{{ mof.space_group }}</td>
+                <td>
+                    {% if mof.comments.count != 0 %}
+                        <a href="{% url 'mof:mof_detail' pk=mof.pk %}">Comments: {{ mof.comments.count }}</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <div class="row">
+        {% if is_paginated %}
+            <div class="col-sm-4 text-left">
+                Mof {{ page_obj.start_index }}-{{ page_obj.end_index }}
+            </div>
+
+            <div class="col-sm-4 text-center">
+                {% if page_obj.has_previous %}
+                    <span><a href="?page={{ page_obj.previous_page_number }}">Previous</a></span>
+                {% endif %}
+                <span>&nbsp;&nbsp;Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}&nbsp;&nbsp;</span>
+                {% if page_obj.has_next %}
+                    <span><a href="?page={{ page_obj.next_page_number }}">Next</a></span>
+                {% endif %}
+            </div>
+
+            <div class="col-sm-4 text-right">
+                <form>
+                    Goto Page:<input type="text" name="page" style="width: 25px;">
+                </form>
+            </div>
+        {% else %}
+            <h3>Pagination Fails</h3>
+            <p>Under Construction</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

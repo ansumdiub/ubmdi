@@ -5,23 +5,43 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title>UBMDI</title>
+
+    <script src="{% static 'lib/jquery.js' %}"></script>
+    <script src="{% static 'lib/popper.min.js' %}"></script>
+{#    <script src="{% static 'lib/bootstrap.min.js' %}"></script>#}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="{% static 'css/network.css' %}">
 </head>
 <body>
-<nav class="navbar sticky-top navbar-light" style="background-color: #b3cde0;">
-    <div class="container">
-        <ul class="nav nav-pills navbar-right">
-            <li><a class="navbar-brand" href="{% url 'mof:index' %}">Welcome</a></li>
-            <li><a class="navbar-brand" href="{% url 'mof:map_view' %}">Map View</a></li>
+<nav class="navbar navbar-expand-lg sticky-top navbar-primary" style="background-color: #005bbb;">
+    <a class="navbar-brand text-white" href="{% url 'mof:index' %}">Welcome</a>
+    <div class="collapse navbar-collapse" id="navbarToggler">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbar-right">
+            <li><a class="nav-link text-white" href="{% url 'mof:about' %}">About</a></li>
+            <li><a class="nav-link text-white" href="{% url 'mof:map_view' %}">Mapping</a></li>
+            <li><a class="nav-link text-white" href="{% url 'mof:mof_list' %}">List View</a></li>
+            {% if user.is_authenticated %}
+                <li><a class="nav-link text-white" href="{% url 'mof:mof_new' %}">New Structure</a></li>
+                <li><a class="nav-link text-white" href="{% url 'mof:mof_draft_list' %}">Drafts</a></li>
+                <li><a class="nav-link text-white" href="#">Hi: {{ user.username }}</a></li>
+                <li><a class="nav-link text-white" href="{% url 'logout' %}">Log Out</a></li>
+            {% else %}
+                <li><a class="nav-link text-white" href="{% url 'login' %}">Login</a></li>
+            {% endif %}
         </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+        </form>
     </div>
 </nav>
+
 <div class="container">
     {% block body_block %}
-    {# Anything outside of this will be inherited if you use extend.#}
+    {# Anything outside of this will be inherited if you use extend. #}
     {% endblock %}
 </div>
 </body>
-<script src="{% static 'lib/jquery.js' %}"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </html>

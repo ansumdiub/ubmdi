@@ -1,0 +1,37 @@
+{% extends "mof_network/base.html" %}
+{% block body_block %}
+<h1>{{ apatite.title }}</h1>
+    {% if apatite.date_publish %}
+        <div>{{ apatite.date_publish }}</div>
+    {% else %}
+        <a class="btn btn-info" href="{% url 'mof:post_publish' pk=apatite.pk %}">Publish</a>
+    {% endif %}
+
+    <p>{{ apatite.text|safe|linebreaksbr }}</p>
+
+    {% if user.is_authenticated %}
+        <a class="btn btn-primary" href="{% url 'mof:post_edit' pk=apatite.pk %}">Edit</a>
+        <a class="btn btn-primary" href="{% url 'mof:post_remove' pk=apatite.pk %}">Cancel</a>
+    {% endif %}
+
+    <hr>
+
+    <a class="btn btn-block" href="{% url 'mof:add_comment_to_post' pk=apatite.pk %}">Add comment</a>
+    <div class="container">
+        {% for comment in apatite.comments.all %}
+            <br>
+            {% if user.is_authenticated or comment.approved %}
+                {{ comment.create_date }}
+                {% if not comment.approved %}
+                    <a class="btn btn-primary" href="{% url 'mof:comment_approve' pk=comment.pk %}">OK</a>
+                    <a class="btn btn-primary" href="{% url 'mof:comment_remove' pk=comment.pk %}">Remove</a>
+                {% endif %}
+                <p>{{ comment.text|safe|linebreaks }}</p>
+                <p>Post By: {{ comment.author }}</p>
+            {% endif %}
+            {% empty %}
+            <p>No Comments!</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}
