@@ -1,75 +1,3 @@
-<!DOCTYPE html>
-{% load staticfiles %}
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-    <title>map_view</title>
-    <script src="{% static 'lib/d3.v3.min.js' %}"></script>
-    <script src="{% static 'lib/d3-color.v1.min.js' %}"></script>
-    <script src="{% static 'lib/d3-interpolate.v1.min.js' %}"></script>
-    <script src="{% static 'lib/d3-scale-chromatic.v1.min.js' %}"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link type="text/css" rel="stylesheet" href="{% static 'css/network.css' %}">
-</head>
-<body>
-<nav class="navbar navbar-expand-lg sticky-top navbar-primary" style="background-color: #005bbb;">
-    <a class="navbar-brand text-white" href="{% url 'mof:index' %}">Overview</a>
-    <div class="collapse navbar-collapse" id="navbarToggler">
-        <ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbar-right">
-            <li><a class="nav-link text-white" href="{% url 'mof:map_view' %}">Mapping</a></li>
-            <li><a class="nav-link text-white" href="{% url 'mof:mof_list' %}">List View</a></li>
-            {% if user.is_authenticated %}
-                <li><a class="nav-link text-white" href="{% url 'mof:mof_new' %}">New Structure</a></li>
-                <li><a class="nav-link text-white" href="{% url 'mof:mof_draft_list' %}">Drafts</a></li>
-                <li><a class="nav-link text-white" href="#">Hi: {{ user.username }}</a></li>
-                <li><a class="nav-link text-white" href="{% url 'logout' %}">Log Out</a></li>
-            {% else %}
-                <li><a class="nav-link text-white" href="{% url 'login' %}">Login</a></li>
-            {% endif %}
-        </ul>
-
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav>
-
-<div class="container">
-    <div class="jumbotron">
-        <h2 class="display-4">Correlative Analysis of Metal Organic Frameworks</h2>
-        <p class="lead"><a href="https://pubs.rsc.org/en/content/articlelanding/2018/me/c8me00014j/unauth#!divAbstract">Correlative analysis of metal organic framework structures through manifold learning of Hirshfeld surfaces</a></p>
-        <hr class="my-4">
-        <div class="row">
-            <div class="col-md-3 col-xs-6">
-                <!--div class="card" style="width: 18rem;" id="testAjax"></div-->
-                <div class="card" id="property" style="width: 18rem;">
-                    <img src="{{ Node.fingerprint.url }}" class="card-img-top" id="fingerprint" alt="fingerprint is not available">
-                    <div class="card-body">
-                        <h5 class="card-title">Example Fingerprint</h5>
-                        <p class="card-text">Click on the node to reveal molecular information</p>
-                    </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item" id="lcd">Largest Cavity Diameter: {{ Node.lcd }} <span>&#8491;</span></li>
-                        <li class="list-group-item" id="pld">Pore-limiting Diameter: {{ Node.pld }} <span>&#8491;</span></li>
-                        <li class="list-group-item" id="surfArea">Accessible Surface Area: {{ Node.area }} m<sup>2</sup>/g</li>
-                        <li class="list-group-item" id="density">Density: {{ Node.density }} g/m<sup>3</sup></li>
-                        <li class="list-group-item" id="formula">Formula: {{ Node.formula }}</li>
-                        <li class="list-group-item" id="spaceGroup">Space Group: {{ Node.space_group }}</li>
-                        <li class="list-group-item" id="volFrac">Volume Fraction: {{ Node.vol_frac }}</li>
-                    </ul>
-                </div>
-                <div id="sidePanel">
-                    <div class="card panel_off" id="materialInfo"></div>
-                </div>
-            </div>
-            <div class="col-md-9 col-xs-6" id="main"></div>
-        </div>
-    </div>
-</div>
-    <script src="{% static 'lib/jquery.js' %}"></script>
-    <script type="text/javascript">
         let body = document.getElementsByTagName('body')[0];
         document.getElementById('sidePanel').style.visibility = 'hidden';
         let t = document.getElementsByTagName('body');
@@ -283,7 +211,6 @@
                             $('.card-body').empty();
                             $('.list-group').empty();
                             $('#fingerprint').attr("src", "data:image/png;base64," + mof_png);
-                            {#.replaceWith('<img alt="Embedded Image" src="data:image/png;base64,' + mof_png + '" />');#}
                             },
 
                         // handle a non-successful response
@@ -351,6 +278,3 @@
                 return false;
             }
         });
-    </script>
-</body>
-</html>

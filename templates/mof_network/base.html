@@ -15,10 +15,9 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg sticky-top navbar-primary" style="background-color: #005bbb;">
-    <a class="navbar-brand text-white" href="{% url 'mof:index' %}">Welcome</a>
+    <a class="navbar-brand text-white" href="{% url 'mof:index' %}">Overview</a>
     <div class="collapse navbar-collapse" id="navbarToggler">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0 navbar-right">
-            <li><a class="nav-link text-white" href="{% url 'mof:about' %}">About</a></li>
             <li><a class="nav-link text-white" href="{% url 'mof:map_view' %}">Mapping</a></li>
             <li><a class="nav-link text-white" href="{% url 'mof:mof_list' %}">List View</a></li>
             {% if user.is_authenticated %}

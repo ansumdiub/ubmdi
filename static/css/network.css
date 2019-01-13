@@ -20,8 +20,16 @@ text {
     pointer-events: none;
 }
 
+.link-CoRE {
+    color: lightslategray;
+}
+
+.link-CoRE:hover {
+    color: slategray;
+}
+
 a {
-    color: blue;
+    color: darkblue;
     text-decoration: none;
 }
 

@@ -4,9 +4,12 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import (CreateView, DeleteView, DetailView, ListView, TemplateView, UpdateView)
 from .forms import PostForm, CommentForm, MofForm
 from .models import *
+import json
+import base64
 import logging
 logger = logging.getLogger(__name__)
 
@@ -20,25 +23,28 @@ class AboutView(TemplateView):
 
 
 class MapView(TemplateView):
+    context_object_name = 'mofs'
+    model = Mof
     template_name = 'mof_network/map_view.html'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['Node'] = Mof.objects.raw('SELECT name, fingerprint FROM mof_network_mof WHERE name="AA"')[0].fingerprint
+        context['Node'] = Mof.objects \
+            .raw('SELECT name, fingerprint FROM mof_network_mof WHERE name="OWITAQ"')[0]
+        print(context)
         return context
 
 
-# def graph(request):
-#     data = Post.objects.filter(name__startswith='Test') \ #change here for filter. can be any kind of filter really
-#                        .extra(select={'month': connections[Play.objects.db].ops.date_trunc_sql('month', 'date')}) \
-#                        .values('month') \
-#                        .annotate(count_items=Count('id'))
-#
-#     formattedData =json.dumps([dict(item) in list(data)])
-#     #This is a two-fer. It converts each item in the Queryset to a dictionary and
-#     #then formats it using the json from import json above
-#     #now we can pass formattedData via the render request
-#     return render(request, 'mof_network/map_view.html', {'formattedData':formattedData})
+@csrf_exempt
+def ajax_render(request):
+    model = Mof
+    name = str(request.POST.get('mof_name'))
+    mof = Mof.objects.all().filter(name__exact=name).get()
+    print(mof.fingerprint)
+    with open(mof.fingerprint.path, 'rb') as image_file:
+        encoded_string = base64.b64encode(image_file.read())
+    response = HttpResponse(encoded_string, content_type='image/png')
+    return response
 
 
 class MofListView(ListView):
@@ -70,7 +76,11 @@ class MofUpdateView(UpdateView):
     # redirect_field_name = 'mof_network/mof_detail.html'
     form_class = MofForm
     model = Mof
-    success_url = reverse_lazy('mof:mof_detail', pk=Mof.pk)
+    # success_url = reverse_lazy('mof:mof_list')
+
+    @staticmethod
+    def get_redirect_url(self, param):
+        return reverse_lazy('mof:mof_detail', kwargs={'pk': Mof.pk})
 
 
 class MofDeleteView(LoginRequiredMixin, DeleteView):

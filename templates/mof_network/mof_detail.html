@@ -32,7 +32,7 @@
 
                 <div class="card-body">
                     <p>Correlated with: </p>
-                    {% for item in mof_detail.B.all %}
+                    {% for item in mof_detail.B.all%}
                         <a href="{% url 'mof:mof_detail' pk=item.source_id|safe %}" class="card-link">{{ item.source_id|safe }}</a>
                     {% empty %}<p>None in this dataset</p>
                     {% endfor %}
